@@ -13,5 +13,5 @@ public abstract class BaseGunCardData : ScriptableObject
     public string range;
     public string piercing;
     public string description;
-    public Button buyButton;
+    public int price;
 }

@@ -4,10 +4,15 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class BackpackUIScript : MonoBehaviour
 {
     public BackPackManager backpackManager;
     public List<Image> backpackSlotImages;
+
+
+
+
 
     void Start()
     {
@@ -16,6 +21,7 @@ public class BackpackUIScript : MonoBehaviour
         backpackManager.OnBackpackChanged += UpdateBackpackUI;
         UpdateBackpackUI();
     }
+
 
     void UpdateBackpackUI()
     {

@@ -3,28 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class ItemSelectMenu : MonoBehaviour
 {
-    public GameObject gunCanvas; // Reference to the UI canvas that will hold the guns
+    public GameObject gunCanvas;
     public List<GameObject> cardPrefabs;
     public Transform[] spawnPoints;
     public int maxCardPrefabs = 5;
-
     float spawnSameGunProbability = 0.1f;
-
     private List<GameObject> spawnedCards = new List<GameObject>();
 
 
 
-    public void PlayButton()
-    {
-        SceneManager.LoadScene(1);
-    }
 
 
     public void OnEnable()
     {
         SpawnGunUI();
+    }
+
+
+    public void PlayButton()
+    {
+        SceneManager.LoadScene(1);
+        WaveManager.Instance.StartWave();
     }
 
 
@@ -72,8 +74,4 @@ public class ItemSelectMenu : MonoBehaviour
             availableSpawnPoints.RemoveAt(randomSpawnIndex);
         }
     }
-
-
-
-
 }

@@ -1,16 +1,22 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering;
 using UnityEngine.UI;
 
 public class GunIconPanel : MonoBehaviour
 {
-    public Image[] gunIconImages; // UI elements to display gun icons
+    public Image[] gunIconImages;
+
+
+
 
     private void Update()
     {
         PopulateGunIcons();
     }
 
-    private void PopulateGunIcons()
+
+    public void PopulateGunIcons()
     {
         for (int i = 0; i < InventoryManager.Instance.inventory.Count; i++)
         {

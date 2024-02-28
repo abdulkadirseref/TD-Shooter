@@ -11,12 +11,7 @@ public class BackPackManager : MonoBehaviour
 
     public event Action OnBackpackChanged;
 
-    [System.Serializable]
-    public class ItemStack
-    {
-        public BaseItemData item;
-        public int quantity;
-    }
+
 
     private void Awake()
     {
@@ -30,6 +25,7 @@ public class BackPackManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
 
     public void AddItemToBackPack(BaseItemData baseItemData)
     {
@@ -49,7 +45,14 @@ public class BackPackManager : MonoBehaviour
 
             backpack.Add(newItemStack);
         }
-
         OnBackpackChanged?.Invoke();
+    }
+
+
+    [System.Serializable]
+    public class ItemStack
+    {
+        public BaseItemData item;
+        public int quantity;
     }
 }

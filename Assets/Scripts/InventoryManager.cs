@@ -29,52 +29,6 @@ public class InventoryManager : MonoBehaviour
     }
 
 
-    private void Start()
-    {
-        Debug.Log("InventoryManager Start method called. Loading inventory...");
-        LoadInventory();
-    }
-
-
-    private void OnApplicationQuit()
-    {
-        Debug.Log("Application quitting. Saving inventory...");
-        SaveInventory();
-    }
-
-
-    private void SaveInventory()
-    {
-        // Convert the list of inventory items to a string
-        string serializedInventory = string.Join(",", inventory.ConvertAll(item => item.name).ToArray());
-
-        // Save the inventory data to PlayerPrefs
-        PlayerPrefs.SetString("Inventory", serializedInventory);
-        PlayerPrefs.Save();
-    }
-
-
-    private void LoadInventory()
-    {
-         if (PlayerPrefs.HasKey("Inventory"))
-    {
-        string serializedInventory = PlayerPrefs.GetString("Inventory");
-        string[] itemNames = serializedInventory.Split(',');
-
-        inventory.Clear();
-
-        foreach (string itemName in itemNames)
-        {
-            BaseGunData gunData = Resources.Load<BaseGunData>("YourScriptableObjectFolderPath/" + itemName);
-            if (gunData != null)
-            {
-                inventory.Add(gunData);
-            }
-        }
-    }
-    }
-
-
     public void AddGunToInventory(BaseGunData gunData)
     {
         if (CanEquipGun())
@@ -106,5 +60,4 @@ public class InventoryManager : MonoBehaviour
     {
         canEquipGun = inventory.Count < maxItemCount;
     }
-
 }

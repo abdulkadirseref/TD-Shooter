@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
+
     private void OnEnable()
     {
         inputReader.moveEvent += OnMove;

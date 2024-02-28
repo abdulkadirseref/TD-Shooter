@@ -18,19 +18,21 @@ public class BaseGunCard : MonoBehaviour
     public TextMeshProUGUI coolDownText;
     public TextMeshProUGUI piercingText;
     public TextMeshProUGUI descriptionText;
+    public Text priceText;
 
 
 
     private void Start()
     {
-        int baseDamage = baseGunData.gunDamage + StatManager.Instance.rangedDamage;
-        float gunDamage = baseDamage + (baseDamage * (StatManager.Instance.damage / 100f));
-        
+        int baseDamage = baseGunData.gunDamage + StatManager.Instance.baseStatData.rangedDamage;
+        float gunDamage = baseDamage + (baseDamage * (StatManager.Instance.baseStatData.damage / 100f));
+
         damageText.text = "Damage: " + gunDamage.ToString();
         baseGunCardData.damage = gunDamage.ToString();
         baseGunCardData.piercing = baseGunData.piercing.ToString();
         baseGunCardData.coolDown = baseGunData.fireRate.ToString();
         baseGunCardData.range = baseGunData.range.ToString();
+        priceText.text = "Price: " + baseGunCardData.price.ToString();
     }
 
     private void OnEnable()

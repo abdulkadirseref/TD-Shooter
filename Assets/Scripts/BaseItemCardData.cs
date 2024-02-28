@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseItemCardData : ScriptableObject
+public class BaseItemCardData : ScriptableObject
 {  
     public int price;
     public int qualityLevel;

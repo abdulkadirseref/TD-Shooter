@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class StatManager : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; }
+    public static StatManager Instance { get; private set; }
+    public BaseStatData baseStatData;
+
+   
 
 
     private void Awake()
