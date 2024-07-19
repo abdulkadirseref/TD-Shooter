@@ -25,7 +25,7 @@ public class ItemSelectMenu : MonoBehaviour
 
     public void PlayButton()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
         WaveManager.Instance.StartWave();
     }
 

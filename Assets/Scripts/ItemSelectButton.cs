@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,6 @@ public class ItemSelectButton : MonoBehaviour
     public BaseGunData gunData;
     public BaseItemData itemData;
     public BaseGunCardData gunCardData;
-
 
 
 

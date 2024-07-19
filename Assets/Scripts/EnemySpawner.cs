@@ -49,6 +49,7 @@ public class EnemySpawner : MonoBehaviour
     {
         public BaseEnemyData enemyData;
 
+
         public IEnumerator Spawn()
         {
             yield return new WaitForSeconds(enemyData.startDelay);
@@ -62,6 +63,7 @@ public class EnemySpawner : MonoBehaviour
                 yield return new WaitForSeconds(enemyData.spawnDelay);
             }
         }
+
 
         void SpawnSingleEnemy()
         {

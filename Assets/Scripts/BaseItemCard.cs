@@ -7,6 +7,8 @@ public class BaseItemCard : MonoBehaviour
     public BaseItemCardData baseItemCardData;
     public BaseStatData baseStatData;
 
+
+
     public void OnCardBought()
     {
         baseStatData.damage += baseItemCardData.damage;

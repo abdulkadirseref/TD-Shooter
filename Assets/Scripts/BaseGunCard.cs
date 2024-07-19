@@ -10,9 +10,9 @@ public class BaseGunCard : MonoBehaviour
     public BaseGunData baseGunData;
 
 
+    public Image cardImage;
     public TextMeshProUGUI cardNameText;
     public TextMeshProUGUI cardTypeNameText;
-    public Image cardImage;
     public TextMeshProUGUI damageText;
     public TextMeshProUGUI rangeText;
     public TextMeshProUGUI coolDownText;
@@ -32,18 +32,16 @@ public class BaseGunCard : MonoBehaviour
         baseGunCardData.piercing = baseGunData.piercing.ToString();
         baseGunCardData.coolDown = baseGunData.fireRate.ToString();
         baseGunCardData.range = baseGunData.range.ToString();
-        priceText.text = "Price: " + baseGunCardData.price.ToString();
     }
 
     private void OnEnable()
     {
         cardNameText.text = baseGunData.name;
         cardImage.sprite = baseGunData.gunIcon;
-
         rangeText.text = "Range : " + baseGunData.range.ToString();
         coolDownText.text = "CoolDown : " + baseGunData.fireRate.ToString();
         piercingText.text = "Piercing : " + baseGunData.piercing.ToString();
         descriptionText.text = baseGunData.description;
+        priceText.text = "Price: " + baseGunCardData.price.ToString();
     }
-
 }

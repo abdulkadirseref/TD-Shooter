@@ -1,8 +1,6 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -11,7 +9,7 @@ public class InventoryManager : MonoBehaviour
     public List<BaseGunData> inventory = new List<BaseGunData>();
     public int maxItemCount = 6;
     public bool canEquipGun;
-
+    public static event Action OnInventoryChanged;
 
 
 
@@ -37,6 +35,7 @@ public class InventoryManager : MonoBehaviour
             {
                 inventory.Add(gunData);
                 Debug.Log(gunData.gunName + " added to inventory!");
+                OnInventoryChanged?.Invoke();
             }
             else
             {
@@ -52,7 +51,7 @@ public class InventoryManager : MonoBehaviour
 
     public bool CanEquipGun()
     {
-        return (inventory.Count < maxItemCount) && canEquipGun;
+        return (inventory.Count < maxItemCount);
     }
 
 
