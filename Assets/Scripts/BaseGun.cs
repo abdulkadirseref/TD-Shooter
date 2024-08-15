@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -17,7 +15,7 @@ public class BaseGun : MonoBehaviour
     public LayerMask targetMask;
     public Transform firePoint;
     public Collider2D nearestEnemyCollider = null;
-    float minDistance = 100f;
+    float minDistance = 50f;
     private IObjectPool<Projectile> objectPool;
     [SerializeField] private Projectile projectilePrefab;
     [SerializeField] private bool collectionCheck = true;
@@ -167,7 +165,7 @@ public class BaseGun : MonoBehaviour
     {
         Collider2D[] inRangeTarget = Physics2D.OverlapCircleAll(transform.position, range, targetMask);
 
-        minDistance = 100f;
+        minDistance = 50f;
         nearestEnemyCollider = null;
 
         if (inRangeTarget.Length != 0)
@@ -187,7 +185,7 @@ public class BaseGun : MonoBehaviour
         }
         else
         {
-            minDistance = 100f;
+            minDistance = 50f;
             nearestEnemyCollider = null;
         }
     }

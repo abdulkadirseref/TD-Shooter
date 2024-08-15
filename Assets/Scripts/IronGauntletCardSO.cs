@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "Item/IronGauntlet")]
+[CreateAssetMenu(menuName = "Item/IronGauntletCard")]
 public class IronGauntletCardSO : BaseItemCardData
-{  
-    
+{
+
 }

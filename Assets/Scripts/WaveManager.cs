@@ -1,13 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 
-public class WaveManager : MonoBehaviour
+
+public class WaveManager : MonoBehaviour, IDataPersistence
 {
     public static WaveManager Instance { get; private set; }
     public int waveIndex;
@@ -88,7 +85,19 @@ public class WaveManager : MonoBehaviour
     {
         Debug.Log("Wave " + waveIndex + " Ended");
         waveIndex++;
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
+    }
+
+
+    public void LoadData(GameData data)
+    {
+        this.waveIndex = data.waveIndex;
+    }
+
+
+    public void SaveData(ref GameData data)
+    {
+        data.waveIndex = this.waveIndex;
     }
 
 

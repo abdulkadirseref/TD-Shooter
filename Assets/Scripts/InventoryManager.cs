@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryManager : MonoBehaviour
+public class InventoryManager : MonoBehaviour, IDataPersistence
 {
 
     public static InventoryManager Instance { get; private set; }
@@ -58,5 +58,17 @@ public class InventoryManager : MonoBehaviour
     public void UpdateEquipGun()
     {
         canEquipGun = inventory.Count < maxItemCount;
+    }
+
+
+    public void LoadData(GameData data)
+    {
+        this.inventory = data.gunData;
+    }
+
+
+    public void SaveData(ref GameData data)
+    {
+        data.gunData = this.inventory;
     }
 }

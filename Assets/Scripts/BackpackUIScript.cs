@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +7,6 @@ public class BackpackUIScript : MonoBehaviour
 {
     public BackPackManager backpackManager;
     public List<Image> backpackSlotImages;
-
 
 
 

@@ -1,19 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
+
 public class ItemSelectMenu : MonoBehaviour
 {
     public GameObject gunCanvas;
-    public List<GameObject> cardPrefabs;
     public Transform[] spawnPoints;
-    public int maxCardPrefabs = 5;
-    float spawnSameGunProbability = 0.1f;
     private List<GameObject> spawnedCards = new List<GameObject>();
-
-
 
 
 
@@ -25,7 +20,7 @@ public class ItemSelectMenu : MonoBehaviour
 
     public void PlayButton()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);
         WaveManager.Instance.StartWave();
     }
 
@@ -42,36 +37,46 @@ public class ItemSelectMenu : MonoBehaviour
         // Randomly spawn gun prefabs
         List<Transform> availableSpawnPoints = new List<Transform>(spawnPoints);
 
-        for (int i = 0; i < maxCardPrefabs; i++)
+
+
+        foreach (var slot in spawnPoints)
         {
-            if (availableSpawnPoints.Count == 0)
-                break;
-
-            GameObject selectedCardPrefab;
-
-            // Determine whether to spawn a different gun or the same one
-
-            if (i > 0 && Random.value < spawnSameGunProbability)
+            // Try to spawn a gun until success
+            while (true)
             {
-                // Spawn the same gun as the previous one
-                selectedCardPrefab = spawnedCards[i - 1];
+                if (GameManager.Instance.concatenatedList.Count == 0 || availableSpawnPoints.Count == 0)
+                    break;
+
+                int randomGunIndex = Random.Range(0, GameManager.Instance.concatenatedList.Count);
+                ScriptableObject selectedCardPrefab = GameManager.Instance.concatenatedList[randomGunIndex];
+
+                GameObject gunPrefab = null;
+                float spawnChance = 0f;
+
+                if (selectedCardPrefab is BaseGunCardData gunCardData)
+                {
+                    gunPrefab = gunCardData.cardPrefab;
+                    spawnChance = gunCardData.spawnProbability;
+                }
+                else if (selectedCardPrefab is BaseItemCardData itemCardData)
+                {
+                    gunPrefab = itemCardData.cardPrefab;
+                    spawnChance = itemCardData.spawnProbability;
+                }
+
+                if (gunPrefab != null && Random.value < spawnChance)
+                {
+                    int randomSpawnIndex = Random.Range(0, availableSpawnPoints.Count);
+                    Transform spawnPoint = availableSpawnPoints[randomSpawnIndex];
+
+                    GameObject spawnedGun = Instantiate(gunPrefab, spawnPoint.position, Quaternion.identity);
+                    spawnedGun.transform.SetParent(gunCanvas.transform, false); // Set the canvas as parent
+
+                    spawnedCards.Add(spawnedGun);
+                    availableSpawnPoints.RemoveAt(randomSpawnIndex);
+                    break; // Exit the while loop and move to the next slot
+                }
             }
-            else
-            {
-                int randomGunIndex = Random.Range(0, cardPrefabs.Count);
-                selectedCardPrefab = cardPrefabs[randomGunIndex];
-                cardPrefabs.RemoveAt(randomGunIndex);
-            }
-
-            int randomSpawnIndex = Random.Range(0, availableSpawnPoints.Count);
-            Transform spawnPoint = availableSpawnPoints[randomSpawnIndex];
-
-            GameObject spawnedGun = Instantiate(selectedCardPrefab, spawnPoint.position, Quaternion.identity);
-            spawnedGun.transform.SetParent(gunCanvas.transform, false); // Set the canvas as parent
-
-            spawnedCards.Add(spawnedGun);
-
-            availableSpawnPoints.RemoveAt(randomSpawnIndex);
         }
     }
 }

@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 
 
 public class PlayerManager : MonoBehaviour
@@ -12,6 +11,7 @@ public class PlayerManager : MonoBehaviour
     public int attackSpeed;
     public int range;
     public int moveSpeed;
+    [SerializeField] private CapsuleCollider2D wallCollider;
 
 
 
@@ -24,6 +24,9 @@ public class PlayerManager : MonoBehaviour
         attackSpeed = StatManager.Instance.baseStatData.attackSpeed;
         range = StatManager.Instance.baseStatData.range;
         moveSpeed = StatManager.Instance.baseStatData.moveSpeed;
+
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Bullet"), true);
     }
 
 

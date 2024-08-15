@@ -1,10 +1,14 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+
+public class GameManager : MonoBehaviour, IDataPersistence
 {
     public static GameManager Instance { get; private set; }
     public int materialAmount;
-    public BaseGunCardData[] gunCardDatas;
+    public List<BaseGunCardData> gunCardDatas;
+    public List<BaseItemCardData> itemCards;
+    public List<ScriptableObject> concatenatedList = new List<ScriptableObject>();
 
 
     private void Awake()
@@ -18,6 +22,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        concatenatedList.AddRange(gunCardDatas);
+        concatenatedList.AddRange(itemCards);
     }
 
 
@@ -39,5 +45,17 @@ public class GameManager : MonoBehaviour
         {
             // gunData.price += 2;
         }
+    }
+
+
+    public void LoadData(GameData data)
+    {
+        this.materialAmount = data.material;
+    }
+
+
+    public void SaveData(ref GameData data)
+    {
+        data.material = this.materialAmount;
     }
 }
