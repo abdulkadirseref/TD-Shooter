@@ -5,17 +5,13 @@ using UnityEngine.UI;
 
 public class BackpackUIScript : MonoBehaviour
 {
-    public BackPackManager backpackManager;
     public List<Image> backpackSlotImages;
 
 
 
-
     void Start()
-    {
-        backpackManager = FindObjectOfType<BackPackManager>();
-
-        backpackManager.OnBackpackChanged += UpdateBackpackUI;
+    {      
+        BackPackManager.OnBackpackChanged += UpdateBackpackUI;
         UpdateBackpackUI();
     }
 
@@ -24,9 +20,9 @@ public class BackpackUIScript : MonoBehaviour
     {
         for (int i = 0; i < backpackSlotImages.Count; i++)
         {
-            if (backpackManager != null && i < backpackManager.backpack.Count)
+            if (BackPackManager.Instance != null && i < BackPackManager.Instance.backpack.Count)
             {
-                BaseItemData currentItem = backpackManager.backpack[i].item;
+                BaseItemData currentItem = BackPackManager.Instance.backpack[i].item;
 
                 // Check if the Image component is not null and not destroyed
                 if (backpackSlotImages[i] != null && backpackSlotImages[i].gameObject != null)
@@ -35,7 +31,7 @@ public class BackpackUIScript : MonoBehaviour
                     if (currentItem != null && currentItem.itemImage != null)
                     {
                         backpackSlotImages[i].sprite = currentItem.itemImage;
-                        backpackSlotImages[i].GetComponentInChildren<Text>().text = backpackManager.backpack[i].quantity.ToString();
+                        backpackSlotImages[i].GetComponentInChildren<Text>().text = BackPackManager.Instance.backpack[i].quantity.ToString();
                     }
                     else
                     {

@@ -9,7 +9,8 @@ public class BackPackManager : MonoBehaviour
     public static BackPackManager Instance { get; private set; }
     public List<ItemStack> backpack = new List<ItemStack>();
 
-    public event Action OnBackpackChanged;
+    public static event Action OnBackpackChanged;
+    public bool isEventInvoked;
 
 
 

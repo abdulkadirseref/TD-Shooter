@@ -13,9 +13,11 @@ public class DataPersistenceManager : MonoBehaviour
     [SerializeField] private string fileName;
 
     public static DataPersistenceManager Instance { get; private set; }
-    private GameData gameData;
+    public GameData GameData { get; private set; }
     private List<IDataPersistence> dataPersistenceObjects;
     private FileDataHandler dataHandler;
+    public static event Action OnContinueButtonPressed;
+    public bool isEventInvoked;
 
 
 
@@ -45,8 +47,10 @@ public class DataPersistenceManager : MonoBehaviour
     {
         if (dataHandler.SaveFileExists())
         {
-            LoadGame();
             SceneManager.LoadScene(2);
+            OnContinueButtonPressed?.Invoke();
+            isEventInvoked = true;
+            LoadGame();
         }
         else
         {
@@ -92,47 +96,65 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void NewGame()
     {
-        this.gameData = new GameData();
+        this.GameData = new GameData();
 
         foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
         {
-            dataPersistenceObj.LoadData(gameData);
+            dataPersistenceObj.LoadData(GameData);
         }
     }
 
 
     public void LoadGame()
     {
-        this.gameData = dataHandler.Load();
+        this.GameData = dataHandler.Load();
 
-        if (this.gameData == null)
+        if (this.GameData == null)
         {
             Debug.Log("No data was found. Initializing data to defaults.");
             NewGame();
         }
         foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
         {
-            dataPersistenceObj.LoadData(gameData);
+            dataPersistenceObj.LoadData(GameData);
         }
     }
 
 
     public void SaveGame()
     {
+        // Create a local copy of gameData
+        GameData localGameData = this.GameData;
+
+        // Pass the local variable by reference
         foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
         {
-            dataPersistenceObj.SaveData(ref gameData);
+            dataPersistenceObj.SaveData(ref localGameData);
         }
-        dataHandler.Save(gameData);
+
+        // Assign the modified local variable back to the property
+        this.GameData = localGameData;
+
+        // Save the data
+        dataHandler.Save(this.GameData);
     }
 
 
     private List<IDataPersistence> FindAllDataPersistenceObjects()
     {
         IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
+        Debug.Log("Data persistence objects found: " + dataPersistenceObjects.Count());
         return new List<IDataPersistence>(dataPersistenceObjects);
     }
 
+
+    public void RegisterDataPersistenceObject(IDataPersistence dataPersistenceObject)
+    {
+        if (!dataPersistenceObjects.Contains(dataPersistenceObject))
+        {
+            dataPersistenceObjects.Add(dataPersistenceObject);
+        }
+    }
 
     private void OnApplicationQuit()
     {

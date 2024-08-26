@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour, IDataPersistence
 {
-
     public static InventoryManager Instance { get; private set; }
     public List<BaseGunData> inventory = new List<BaseGunData>();
     public int maxItemCount = 6;
     public bool canEquipGun;
     public static event Action OnInventoryChanged;
+    public bool isEventInvoked;
 
 
 
