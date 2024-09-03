@@ -21,6 +21,10 @@ public class ItemSelectMenu : MonoBehaviour, IDataPersistence
         this.lastGunCardList = DataPersistenceManager.Instance.GameData.lastGunCards;
         this.lastItemCardList = DataPersistenceManager.Instance.GameData.lastItemCards;
         SpawnLastCards();
+        if (lastItemCardList.Count == 0 && lastGunCardList.Count == 0)
+        {
+            SpawnGunUI();
+        }
     }
 
     public void OnEnable()

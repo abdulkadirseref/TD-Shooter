@@ -20,9 +20,9 @@ public class BackpackUIScript : MonoBehaviour
     {
         for (int i = 0; i < backpackSlotImages.Count; i++)
         {
-            if (BackPackManager.Instance != null && i < BackPackManager.Instance.backpack.Count)
+            if (BackPackManager.Instance != null && i < BackPackManager.Instance.backPack.Count)
             {
-                BaseItemData currentItem = BackPackManager.Instance.backpack[i].item;
+                BaseItemData currentItem = BackPackManager.Instance.backPack[i].item;
 
                 // Check if the Image component is not null and not destroyed
                 if (backpackSlotImages[i] != null && backpackSlotImages[i].gameObject != null)
@@ -31,7 +31,7 @@ public class BackpackUIScript : MonoBehaviour
                     if (currentItem != null && currentItem.itemImage != null)
                     {
                         backpackSlotImages[i].sprite = currentItem.itemImage;
-                        backpackSlotImages[i].GetComponentInChildren<Text>().text = BackPackManager.Instance.backpack[i].quantity.ToString();
+                        backpackSlotImages[i].GetComponentInChildren<Text>().text = BackPackManager.Instance.backPack[i].quantity.ToString();
                     }
                     else
                     {

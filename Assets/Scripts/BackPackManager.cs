@@ -4,10 +4,10 @@ using UnityEngine;
 
 
 
-public class BackPackManager : MonoBehaviour
+public class BackPackManager : MonoBehaviour, IDataPersistence
 {
     public static BackPackManager Instance { get; private set; }
-    public List<ItemStack> backpack = new List<ItemStack>();
+    public List<ItemStack> backPack = new List<ItemStack>();
 
     public static event Action OnBackpackChanged;
     public bool isEventInvoked;
@@ -27,10 +27,15 @@ public class BackPackManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        
+    }
+
 
     public void AddItemToBackPack(BaseItemData baseItemData)
     {
-        ItemStack existingItemStack = backpack.Find(itemStack => itemStack.item == baseItemData);
+        ItemStack existingItemStack = backPack.Find(itemStack => itemStack.item == baseItemData);
 
         if (existingItemStack != null)
         {
@@ -43,12 +48,25 @@ public class BackPackManager : MonoBehaviour
                 item = baseItemData,
                 quantity = 1
             };
-
-            backpack.Add(newItemStack);
+            backPack.Add(newItemStack);
         }
         OnBackpackChanged?.Invoke();
     }
 
+    public void LoadData(GameData data)
+    {
+        this.backPack = data.itemData;
+        Debug.Log("Loaded Backpack Items:");
+        foreach (var itemStack in backPack)
+        {
+            Debug.Log($"Item: {itemStack.item.name}, Quantity: {itemStack.quantity}");
+        }
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.itemData = this.backPack;
+    }
 
     [System.Serializable]
     public class ItemStack

@@ -1,7 +1,6 @@
 using UnityEngine;
 
 
-
 public class PlayerManager : MonoBehaviour
 {
     public int health;
@@ -16,7 +15,7 @@ public class PlayerManager : MonoBehaviour
 
 
     private void Start()
-    {
+    {       
         health = StatManager.Instance.baseStatData.health;
         armor = StatManager.Instance.baseStatData.armor;
         damage = StatManager.Instance.baseStatData.damage;
