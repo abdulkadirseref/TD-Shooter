@@ -31,7 +31,7 @@ public class BaseEnemy : MonoBehaviour
         startDelay = baseEnemyData.startDelay;
         quantityPerSpawn = baseEnemyData.quantityPerSpawn;
         chanceToDropMaterial = baseEnemyData.chanceToDropMaterial;
-        playerPosition = FindObjectOfType<PlayerMovement>().transform;
+        playerPosition = Object.FindFirstObjectByType<PlayerMovement>().transform;
     }
 
 

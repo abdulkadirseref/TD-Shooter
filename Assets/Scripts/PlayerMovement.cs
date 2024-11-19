@@ -28,13 +28,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-
+       
     }
 
 
     void OnMove(Vector2 movement)
     {
-        rb.velocity = movement * movementParameters.MoveSpeed;
+        rb.linearVelocity = movement * movementParameters.MoveSpeed;
     }
 
 }

@@ -20,7 +20,7 @@ public class CameraManager : MonoBehaviour
 
     private void Start()
     {
-        targetObject = FindObjectOfType<PlayerMovement>().gameObject;
+        targetObject = Object.FindFirstObjectByType<PlayerMovement>().gameObject;
     }
 
 
