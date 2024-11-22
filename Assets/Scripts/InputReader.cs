@@ -7,8 +7,6 @@ public class InputReader : ScriptableObject, CustomInput.IPlayerActions
 {
 
     public event UnityAction<Vector2> moveEvent = delegate { };
-
-
     private CustomInput input;
 
 
@@ -23,7 +21,7 @@ public class InputReader : ScriptableObject, CustomInput.IPlayerActions
         }
 
         input.Enable();
-        Debug.Log("enabled");
+        // Debug.Log("enabled");
     }
 
 
@@ -36,7 +34,7 @@ public class InputReader : ScriptableObject, CustomInput.IPlayerActions
 
     public void OnMovement(InputAction.CallbackContext context)
     {
-        moveEvent.Invoke(context.ReadValue<Vector2>());
+        moveEvent.Invoke(context.ReadValue<Vector2>());    
         // Debug.Log(context.ReadValue<Vector2>());
     }
 }

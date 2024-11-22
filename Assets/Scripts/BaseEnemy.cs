@@ -105,7 +105,14 @@ public class BaseEnemy : MonoBehaviour
             Projectile projectile = collision.collider.GetComponent<Projectile>();
             health -= projectile.basegun.CalculateDamage();
             ShowDamage(projectile.basegun.CalculateDamage().ToString());
-            projectile.objectPool.Release(projectile);
+            try
+            {
+                projectile.objectPool.Release(projectile);
+            }
+            catch (System.Exception)
+            {
+                Debug.Log("Error occured");
+            }
             Die();
         }
     }
